@@ -1,0 +1,41 @@
+{
+  "User": [
+    {
+      "id": 1,
+      "name": "abhii",
+      "surname": "prajapatiiii"
+    },
+    {
+      "name": "abhi",
+      "surname": "prajapati",
+      "id": 2
+    },
+    {
+      "name": "as",
+      "surname": "a",
+      "id": 3
+    },
+    {
+      "name": "cdasf",
+      "surname": "dfsd",
+      "id": 4
+    },
+    {
+      "name": "dsfdfd",
+      "surname": "fsdf",
+      "id": 5
+    },
+    {
+      "name": "dasfddsf",
+      "surname": "dsfdsfd",
+      "id": 6
+    }
+  ],
+  "todo": {
+    "id": 1,
+    "task": "workout",
+    "days": 2,
+    "time": "12:00pm",
+    "endtime": "6:00am"
+  }
+}

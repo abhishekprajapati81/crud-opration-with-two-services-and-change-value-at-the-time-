@@ -1,0 +1,14 @@
+<form [formGroup]="editform">
+  <label>Name</label>
+  <input type="text" placeholder="name" formControlName="name" />
+  <br />
+  <label>surname</label>
+  <input type="text" placeholder="surname" formControlName="surname" />
+  <br />
+  <button
+    (click)="onUpdate(editform.value.id, editform.value)"
+    [disabled]="!editform.valid"
+  >
+    Update
+  </button>
+</form>

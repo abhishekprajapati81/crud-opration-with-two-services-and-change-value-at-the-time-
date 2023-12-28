@@ -1,0 +1,13 @@
+<form [formGroup]="UserForm">
+  <br />
+  <label for="fname">Name</label>
+  <input type="text" formControlName="name" />
+  <br />
+  <br />
+  <label for="lname">Surname</label>
+  <input type="text" formControlName="surname" />
+  <br />
+  <button (click)="onAdd(UserForm.value)" [disabled]="!UserForm.valid">
+    ADD
+  </button>
+</form>
