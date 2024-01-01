@@ -1,1 +1,9 @@
-<p>todo-add works!</p>
+<form [formGroup]="todoAddForm">
+  <label>Task</label>
+  <input type="text" placeholder="enter the task" formControlName="task" />
+  <br />
+  <label>Days</label>
+  <input type="text" placeholder="enter the days" formControlName="duration" />
+  <br />
+  <button (click)="onadd(todoAddForm.value)">add task</button>
+</form>

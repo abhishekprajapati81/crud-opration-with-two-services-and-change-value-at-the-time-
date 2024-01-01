@@ -16,6 +16,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TodoListComponent } from './todo/todo-list/todo-list.component';
 import { TodoAddComponent } from './todo/todo-add/todo-add.component';
 import { TodoEditComponent } from './todo/todo-edit/todo-edit.component';
+import { TodoReducer } from './todo-store/todo.reducer';
+import { TodoEffect } from './todo-store/todo.effect';
+import { todoFacade } from './application/Todo.facade';
 
 @NgModule({
   declarations: [
@@ -32,14 +35,14 @@ import { TodoEditComponent } from './todo/todo-edit/todo-edit.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ user: UserReducer }),
-    EffectsModule.forRoot([UserEffect]),
+    StoreModule.forRoot({ user: UserReducer, Todo: TodoReducer }),
+    EffectsModule.forRoot([UserEffect, TodoEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
     }),
   ],
-  providers: [UserFacade],
+  providers: [UserFacade, todoFacade],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

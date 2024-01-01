@@ -6,6 +6,17 @@ export const Todoaction = createActionGroup({
   events: {
     getAllTodos: emptyProps(),
     getAllTodoSucc: props<{ Todo: Todo[] }>(),
-    getAllTodoFail: props<{ error: string }>(),
+
+    //delete
+    deleteTodos: props<{ id: number }>(),
+    deleteTodosucc: props<{ id: number }>(),
+
+    // addnewUSer
+    addTodos: props<{ addnewtodos: Todo }>(),
+    addTodosucc: props<{ addnewtodos: Todo }>(),
+
+    // updateTodo
+    updateTodo: props<{ id: number; addtodo: Todo }>(),
+    updateTodosucc: props<{ id: number; addtodo: Todo }>(),
   },
 });

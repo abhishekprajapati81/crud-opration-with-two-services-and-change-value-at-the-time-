@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { todoFacade } from 'src/app/application/Todo.facade';
 
 @Component({
   selector: 'app-todo-list',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./todo-list.component.css'],
 })
 export class TodoListComponent {
-  
+  todoFacde = inject(todoFacade);
+
+  ngOnInit(): void {
+    this.todoFacde.getalltodos();
+  }
+  onDelete(id: number) {
+    this.todoFacde.deleteTodos(id);
+  }
 }

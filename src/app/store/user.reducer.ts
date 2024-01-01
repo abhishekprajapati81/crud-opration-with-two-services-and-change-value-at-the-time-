@@ -11,6 +11,8 @@ export const initialState: UserState = Useradapter.getInitialState();
 export const UserReducer = createReducer<UserState>(
   initialState,
   on(UserActions.getAllUserSucc, (state, { UserList }) => {
+    console.log(UserList, 'userlist');
+    console.log(state, 'state');
     return Useradapter.setAll(UserList, state);
   }),
   on(UserActions.deleteUserSucc, (state, { id }) => {

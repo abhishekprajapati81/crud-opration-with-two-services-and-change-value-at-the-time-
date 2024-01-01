@@ -1,1 +1,11 @@
-<p>todo-edit works!</p>
+<form [formGroup]="todoEditForm">
+  <label>Task</label>
+  <input type="text" placeholder="enter the task" formControlName="task" />
+  <br />
+  <label>Days</label>
+  <input type="text" placeholder="enter the days" formControlName="duration" />
+  <br />
+  <button (click)="onadd(todoEditForm.value.id, todoEditForm.value)">
+    updateTask
+  </button>
+</form>
