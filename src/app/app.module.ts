@@ -5,44 +5,35 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { UserListComponent } from './user/user-list/user-list.component';
-import { UserAddComponent } from './user/user-add/user-add.component';
-import { UserEditComponent } from './user/user-edit/user-edit.component';
-import { UserFacade } from './application/user.facade';
-import { UserReducer } from './store/user.reducer';
-import { UserEffect } from './store/user.effect';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TodoListComponent } from './todo/todo-list/todo-list.component';
-import { TodoAddComponent } from './todo/todo-add/todo-add.component';
-import { TodoEditComponent } from './todo/todo-edit/todo-edit.component';
-import { TodoReducer } from './todo-store/todo.reducer';
-import { TodoEffect } from './todo-store/todo.effect';
-import { todoFacade } from './application/Todo.facade';
+import { CarListComponent } from './car/car-list/car-list.component';
+import { CarAddComponent } from './car/car-add/car-add.component';
+import { CarEditComponent } from './car/car-edit/car-edit.component';
+import { CarReducer } from './car-store/car.reducer';
+import { carEffect } from './car-store/car.effect';
+import { CarFacade } from './application/car.facade';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserListComponent,
-    UserAddComponent,
-    UserEditComponent,
-    TodoListComponent,
-    TodoAddComponent,
-    TodoEditComponent,
+    CarListComponent,
+    CarAddComponent,
+    CarEditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ user: UserReducer, Todo: TodoReducer }),
-    EffectsModule.forRoot([UserEffect, TodoEffect]),
+    StoreModule.forRoot({ car: CarReducer }),
+    EffectsModule.forRoot([carEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
     }),
   ],
-  providers: [UserFacade, todoFacade],
+  providers: [CarFacade],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

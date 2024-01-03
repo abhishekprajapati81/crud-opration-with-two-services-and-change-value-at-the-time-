@@ -1,0 +1,19 @@
+<form [formGroup]="carAddForm">
+  <label>carname</label>
+  <input
+    type="text"
+    placeholder="enter the carname"
+    formControlName="carname"
+  />
+  <br />
+  <label>car fule</label>
+  <input
+    type="text"
+    placeholder="enter the carmodal"
+    formControlName="carfule"
+  />
+  <br />
+  <button (click)="onadd(carAddForm.value)" [disabled]="!carAddForm.valid">
+    add car
+  </button>
+</form>

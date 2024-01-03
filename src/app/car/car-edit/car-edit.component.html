@@ -1,0 +1,22 @@
+<form [formGroup]="CarEditForm">
+  <label>carname</label>
+  <input
+    type="text"
+    placeholder="enter the car name"
+    formControlName="carname"
+  />
+  <br />
+  <label>carfule</label>
+  <input
+    type="text"
+    placeholder="enter the car fule"
+    formControlName="carfule"
+  />
+  <br />
+  <button
+    (click)="onadd(CarEditForm.value.id, CarEditForm.value)"
+    [disabled]="!CarEditForm.valid"
+  >
+    updatecar
+  </button>
+</form>

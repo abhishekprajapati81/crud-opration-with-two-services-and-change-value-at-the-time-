@@ -1,38 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserListComponent } from './user/user-list/user-list.component';
-import { UserAddComponent } from './user/user-add/user-add.component';
-import { UserEditComponent } from './user/user-edit/user-edit.component';
-import { TodoListComponent } from './todo/todo-list/todo-list.component';
-import { TodoAddComponent } from './todo/todo-add/todo-add.component';
-import { TodoEditComponent } from './todo/todo-edit/todo-edit.component';
+import { CarListComponent } from './car/car-list/car-list.component';
+import { CarAddComponent } from './car/car-add/car-add.component';
+import { CarEditComponent } from './car/car-edit/car-edit.component';
 
 const routes: Routes = [
   {
-    path: 'user',
-    component: UserListComponent,
+    path: 'car',
+    component: CarListComponent,
     children: [
       {
-        path: 'add',
-        component: UserAddComponent,
+        path: 'addcar',
+        component: CarAddComponent,
       },
       {
-        path: 'edit/:id',
-        component: UserEditComponent,
-      },
-    ],
-  },
-  {
-    path: 'Todo',
-    component: TodoListComponent,
-    children: [
-      {
-        path: 'addtodos',
-        component: TodoAddComponent,
-      },
-      {
-        path: 'Todoedit/:id',
-        component: TodoEditComponent,
+        path: 'caredit/:id',
+        component: CarEditComponent,
       },
     ],
   },

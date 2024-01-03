@@ -1,51 +1,9 @@
 {
-  "User": [
+  "Cars": [
     {
-      "id": 1,
-      "name": "abhii",
-      "surname": "prajapatiiii"
-    },
-    {
-      "name": "abhi",
-      "surname": "prajapati",
-      "id": 2
-    },
-    {
-      "name": "as",
-      "surname": "a",
-      "id": 3
-    },
-    {
-      "name": "cdasf",
-      "surname": "dfsd",
-      "id": 4
-    },
-    {
-      "name": "dsfdfd",
-      "surname": "fsdf",
-      "id": 5
-    },
-    {
-      "name": "dasfddsf",
-      "surname": "dsfdsfd",
-      "id": 6
-    }
-  ],
-  "todo": [
-    {
-      "id": 1,
-      "task": "workoutsdad",
-      "duration": "25dsad"
-    },
-    {
-      "task": "vbcbvc",
-      "duration": "bxcvbvbsdsfsd",
-      "id": 2
-    },
-    {
-      "task": "s",
-      "duration": "s",
-      "id": 4
+      "carname": "toyota car",
+      "carfule": "petrol",
+      "id": 1
     }
   ]
 }
