@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { CarFacade } from 'src/app/application/car.facade';
-import { car } from 'src/app/car-modal/car.modal';
+import { Car } from 'src/app/car-modal/car.modal';
 
 @Component({
   selector: 'app-car-edit',
@@ -11,27 +12,27 @@ import { car } from 'src/app/car-modal/car.modal';
 })
 export class CarEditComponent implements OnInit {
   CarEditForm!: FormGroup;
-  carfacade = inject(CarFacade);
+  carFacade = inject(CarFacade);
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((res) => {
       console.log(res);
-      const getid: string = res.get('id')!;
-      this.carfacade.Carlist$.subscribe((val) => {
-        const getcardata = val.find((cardata) => cardata.id === +getid);
-        // console.log(val);
+      const getId: string = res.get('id')!;
+      this.carFacade.carList$.subscribe((value) => {
+        const getCarData = value.find((cardata) => cardata.id === +getId);
+        // console.log(value);
 
         this.CarEditForm = new FormGroup({
-          id: new FormControl(getcardata?.id),
-          carname: new FormControl(getcardata?.carname, Validators.required),
-          carfule: new FormControl(getcardata?.carfule, Validators.required),
+          id: new FormControl(getCarData?.id),
+          carname: new FormControl(getCarData?.carname, Validators.required),
+          carfuel: new FormControl(getCarData?.carfuel, Validators.required),
         });
       });
     });
   }
-  onadd(id: number, value: car) {
+  onadd(id: number, value: Car) {
     console.log(this.CarEditForm.value);
-    this.carfacade.updatecar(id, value);
+    this.carFacade.updateCar(id, value);
   }
 }

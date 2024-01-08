@@ -1,17 +1,13 @@
 <form [formGroup]="carAddForm">
-  <label>carname</label>
-  <input
-    type="text"
-    placeholder="enter the carname"
-    formControlName="carname"
-  />
+  <label>CarName</label>
+  <input type="text" placeholder="enter the carame" formControlName="carname" />
   <br />
-  <label>car fule</label>
-  <input
-    type="text"
-    placeholder="enter the carmodal"
-    formControlName="carfule"
-  />
+  <label>CarFuel Type</label>
+  <select formControlName="carfuel">
+    <option value="petrol">Petrol</option>
+    <option value="electric">Electric</option>
+    <option value="diesel">Diesel</option>
+  </select>
   <br />
   <button (click)="onadd(carAddForm.value)" [disabled]="!carAddForm.valid">
     add car

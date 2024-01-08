@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CarFacade } from 'src/app/application/car.facade';
-import { car } from 'src/app/car-modal/car.modal';
+import { Car } from 'src/app/car-modal/car.modal';
 
 @Component({
   selector: 'app-car-add',
@@ -9,18 +9,18 @@ import { car } from 'src/app/car-modal/car.modal';
   styleUrls: ['./car-add.component.css'],
 })
 export class CarAddComponent implements OnInit {
-  carfacade = inject(CarFacade);
+  carFacade = inject(CarFacade);
   carAddForm!: FormGroup;
   ngOnInit() {
     this.carAddForm = new FormGroup({
       carname: new FormControl('', Validators.required),
-      carfule: new FormControl('', Validators.required),
+      carfuel: new FormControl('', Validators.required),
     });
   }
 
-  onadd(car: car) {
+  onadd(car: Car) {
     console.log(this.carAddForm.value);
-    this.carfacade.addcar(car);
+    this.carFacade.addCar(car);
     this.carAddForm.reset();
   }
 }

@@ -1,23 +1,23 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { car } from '../car-modal/car.modal';
+import { Car } from '../car-modal/car.modal';
 
-export const caraction = createActionGroup({
+export const carAction = createActionGroup({
   source: 'car action',
   events: {
-    getAllcars: emptyProps(),
-    getAllCarSucc: props<{ car: car[] }>(),
-    getalldatafail: props<{ error: string }>(),
+    getAllCars: emptyProps(),
+    getAllCarsSuccess: props<{ car: Car[] }>(),
+    getAllCarsFailure: props<{ error: string }>(),
 
     deleteCar: props<{ id: number }>(),
-    deleteCarsucc: props<{ id: number }>(),
-    getdeletefail: props<{ error: string }>(),
+    deleteCarSuccess: props<{ id: number }>(),
+    deleteCarFailure: props<{ error: string }>(),
 
-    addCar: props<{ addnewcar: car }>(),
-    addCarsucc: props<{ addnewcar: car }>(),
-    adddatafail: props<{ error: string }>(),
+    addCar: props<{ car: Car }>(),
+    addCarSuccess: props<{ car: Car }>(),
+    addCarFailure: props<{ error: string }>(),
 
-    updateCar: props<{ id: number; addcar: car }>(),
-    updateCarsucc: props<{ id: number; addcar: car }>(),
-    updatedatafail: props<{ error: string }>(),
+    updateCar: props<{ id: number; car: Car }>(),
+    updateCarSuccess: props<{ id: number; car: Car }>(),
+    updateCarFailure: props<{ error: string }>(),
   },
 });

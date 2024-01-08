@@ -1,29 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { car } from '../car-modal/car.modal';
+import { Car } from '../car-modal/car.modal';
 
 @Injectable({
   providedIn: 'root',
 })
-export class carService {
+export class CarService {
   constructor(private http: HttpClient) {}
 
-  url: string = ' http://localhost:3000/Cars';
+  carUrl: string = ' http://localhost:3000/Cars';
 
-  getCar(): Observable<car[]> {
-    return this.http.get<car[]>(this.url);
+  getCar(): Observable<Car[]> {
+    return this.http.get<Car[]>(this.carUrl);
   }
 
-  deletCar(id: number): Observable<car> {
-    return this.http.delete<car>(`${this.url}/${id}`);
+  deletCar(id: number): Observable<Car> {
+    return this.http.delete<Car>(`${this.carUrl}/${id}`);
   }
 
-  addNewCar(addnewdata: car): Observable<car> {
-    return this.http.post<car>(this.url, addnewdata);
+  addCar(car: Car): Observable<Car> {
+    return this.http.post<Car>(this.carUrl, car);
   }
 
-  updateCar(id: number, todochange: car): Observable<car> {
-    return this.http.patch<car>(`${this.url}/${id}`, todochange);
+  updateCar(id: number, car: Car): Observable<Car> {
+    return this.http.patch<Car>(`${this.carUrl}/${id}`, car);
   }
 }

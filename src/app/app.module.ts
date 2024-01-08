@@ -11,9 +11,12 @@ import { CarListComponent } from './car/car-list/car-list.component';
 import { CarAddComponent } from './car/car-add/car-add.component';
 import { CarEditComponent } from './car/car-edit/car-edit.component';
 import { CarReducer } from './car-store/car.reducer';
-import { carEffect } from './car-store/car.effect';
-import { CarFacade } from './application/car.facade';
 
+import { CarFacade } from './application/car.facade';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CarEffect } from './car-store/car.effect';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,8 +29,11 @@ import { CarFacade } from './application/car.facade';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({ car: CarReducer }),
-    EffectsModule.forRoot([carEffect]),
+    EffectsModule.forRoot([CarEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,

@@ -4,16 +4,18 @@
   <table>
     <tr>
       <th>Id</th>
-      <th>Car name</th>
-      <th>car fule</th>
+      <th>Car Name</th>
+      <th>car Fuel</th>
       <th>Delete</th>
       <th>Edit</th>
     </tr>
-    <tr *ngFor="let car of carFacde.Carlist$ | async">
+    <tr *ngFor="let car of carFacade.carList$ | async">
       <td>{{ car.id }}</td>
       <td>{{ car.carname }}</td>
-      <td>{{ car.carfule }}</td>
-      <td><button (click)="onDelete(car.id ?? 0)">Delete</button></td>
+      <td>{{ car.carfuel }}</td>
+      <td>
+        <button (click)="onDelete(car.id ?? 0)">Delete</button>
+      </td>
       <td><button [routerLink]="['caredit', car.id]">Edit</button></td>
     </tr>
   </table>

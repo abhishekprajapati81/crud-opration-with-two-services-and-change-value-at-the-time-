@@ -1,43 +1,45 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
-import { car } from '../car-modal/car.modal';
+import { Car } from '../car-modal/car.modal';
 import { createReducer, on } from '@ngrx/store';
-import { caraction } from './car.action';
-import { state } from '@angular/animations';
+import { carAction } from './car.action';
 
-export const CarAdapter = createEntityAdapter<car>();
-export interface CarState extends EntityState<car> {}
-export const CaritialState: CarState = CarAdapter.getInitialState();
+export const carAdapter = createEntityAdapter<Car>();
+export interface CarState extends EntityState<Car> {}
+export const carInitialState: CarState = carAdapter.getInitialState();
 
 export const CarReducer = createReducer<CarState>(
-  CaritialState,
-  on(caraction.getAllCarSucc, (state, { car }) => {
-    return CarAdapter.setAll(car, state);
+  carInitialState,
+  on(carAction.getAllCarsSuccess, (state, { car }) => {
+    console.log(car);
+    // console.log(state);
+    return carAdapter.setAll(car, state);
   }),
-  on(caraction.getalldatafail, (state, { error }) => ({
+  on(carAction.getAllCarsFailure, (state, { error }) => ({
     ...state,
     error,
   })),
   // delete
-  on(caraction.deleteCarsucc, (state, { id }) => {
-    return CarAdapter.removeOne(id, { ...state });
+  on(carAction.deleteCarSuccess, (state, { id }) => {
+    console.log(state);
+    return carAdapter.removeOne(id, { ...state });
   }),
-  on(caraction.getdeletefail, (state, { error }) => ({
+  on(carAction.deleteCarFailure, (state, { error }) => ({
     ...state,
     error,
   })),
   // addcar
-  on(caraction.addCarsucc, (state, { addnewcar }) => {
-    return CarAdapter.addOne(addnewcar, { ...state });
+  on(carAction.addCarSuccess, (state, { car: addCar }) => {
+    return carAdapter.addOne(addCar, { ...state });
   }),
-  on(caraction.adddatafail, (state, { error }) => ({
+  on(carAction.addCarFailure, (state, { error }) => ({
     ...state,
     error,
   })),
   // update
-  on(caraction.updateCarsucc, (state, { id, addcar }) => {
-    return CarAdapter.updateOne({ id, changes: addcar }, state);
+  on(carAction.updateCarSuccess, (state, { id, car: updateCar }) => {
+    return carAdapter.updateOne({ id, changes: updateCar }, state);
   }),
-  on(caraction.updatedatafail, (state, { error }) => ({
+  on(carAction.updateCarFailure, (state, { error }) => ({
     ...state,
     error,
   }))

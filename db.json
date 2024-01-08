@@ -1,9 +1,15 @@
 {
   "Cars": [
     {
-      "carname": "toyota car",
-      "carfule": "petrol",
+      "carname": "Tesla",
+      "carfuel": "petrol",
       "id": 1
+    }
+  ],
+  "carFuelType": [
+    {
+      "id": 1,
+      "carFuelType": "petrol"
     }
   ]
 }

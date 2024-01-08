@@ -1,30 +1,29 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { caraction } from '../car-store/car.action';
-import { car } from '../car-modal/car.modal';
-import { selectCar } from '../car-store/car.selector';
+import { carAction } from '../car-store/car.action';
+import { Car } from '../car-modal/car.modal';
+import { selectorAllCars } from '../car-store/car.selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarFacade {
   store = inject(Store);
-  Carlist$ = this.store.select(selectCar);
-  error$!: Error;
+  carList$ = this.store.select(selectorAllCars);
 
-  getallcar() {
-    this.store.dispatch(caraction.getAllcars());
+  getAllCar() {
+    this.store.dispatch(carAction.getAllCars());
   }
 
-  deletecar(id: number) {
-    this.store.dispatch(caraction.deleteCar({ id }));
+  deleteCar(id: number) {
+    this.store.dispatch(carAction.deleteCar({ id }));
   }
 
-  addcar(addnewcar: car) {
-    this.store.dispatch(caraction.addCar({ addnewcar: addnewcar }));
+  addCar(addCar: Car) {
+    this.store.dispatch(carAction.addCar({ car: addCar }));
   }
 
-  updatecar(id: number, addcar: car) {
-    this.store.dispatch(caraction.updateCar({ id, addcar }));
+  updateCar(id: number, updateCar: Car) {
+    this.store.dispatch(carAction.updateCar({ id, car: updateCar }));
   }
 }

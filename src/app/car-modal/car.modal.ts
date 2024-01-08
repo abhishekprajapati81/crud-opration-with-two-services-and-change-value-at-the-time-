@@ -1,6 +1,10 @@
-export interface car {
+export interface Car {
   id?: number;
   carname: string;
-  carfule: string;
-  carmodel: string;
+  carfuel: string;
+}
+
+export interface CarFuelType extends Car {
+  id: number;
+  carFuelType: string;
 }

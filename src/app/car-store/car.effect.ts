@@ -1,72 +1,105 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { caraction } from './car.action';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
-import { carService } from '../service/car.service';
+import { carAction } from './car.action';
+import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
+import { CarService } from '../service/car.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { emptyToster, showToster } from './toster/toster.action';
 
 Injectable();
 
-export class carEffect {
+export class CarEffect {
   action$ = inject(Actions);
-  _httpService = inject(carService);
+  carService = inject(CarService);
+  matSnackBar = inject(MatSnackBar);
 
-  loadCar$ = createEffect(() =>
+  loadCars$ = createEffect(() =>
     this.action$.pipe(
-      ofType(caraction.getAllcars),
+      ofType(carAction.getAllCars),
       mergeMap(() =>
-        this._httpService.getCar().pipe(
-          map((car) => caraction.getAllCarSucc({ car })),
-          catchError((error) => of(caraction.getalldatafail({ error })))
+        this.carService
+          .getCar()
+          .pipe(map((car) => carAction.getAllCarsSuccess({ car })))
+      )
+    )
+  );
+
+  deleteCar$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(carAction.deleteCar),
+      mergeMap((action) =>
+        this.carService.deletCar(action.id).pipe(
+          map(() => carAction.deleteCarSuccess({ id: action.id })),
+          switchMap((deleteAction) => [
+            deleteAction,
+            showToster({ message: 'Delete data successfully' }),
+          ]),
+          catchError((error) => of(carAction.deleteCarFailure({ error })))
         )
       )
     )
   );
 
-  DeleteCar$ = createEffect(() =>
+  addCar$ = createEffect(() =>
     this.action$.pipe(
-      ofType(caraction.deleteCar),
+      ofType(carAction.addCar),
       mergeMap((action) =>
-        this._httpService.deletCar(action.id).pipe(
-          tap(() => {
-            const msg = 'car data delete successfully';
-            alert(msg);
-          }),
-          map((id) => caraction.deleteCarsucc({ id: action.id })),
-          catchError((error) => of(caraction.getdeletefail({ error })))
+        this.carService.addCar(action.car).pipe(
+          map((addCar) => carAction.addCarSuccess({ car: addCar })),
+          switchMap((addnewcaraction) => [
+            addnewcaraction,
+            showToster({ message: 'Add data successfully' }),
+          ]),
+          catchError((error) => of(carAction.addCarFailure({ error })))
         )
       )
     )
   );
 
-  addUser$ = createEffect(() =>
+  updateCar$ = createEffect(() =>
     this.action$.pipe(
-      ofType(caraction.addCar),
+      ofType(carAction.updateCar),
       mergeMap((action) =>
-        this._httpService.addNewCar(action.addnewcar).pipe(
-          tap(() => {
-            const msg = 'data add successfully';
-            alert(msg);
+        this.carService.updateCar(action.id, action.car).pipe(
+          switchMap((updateCar) => {
+            const updateAction = carAction.updateCarSuccess({
+              id: action.id,
+              car: updateCar,
+            });
+            const showTosterAction = showToster({
+              message: 'update data successfully',
+            });
+            return [updateAction, showTosterAction];
           }),
-          map((addnewcar) => caraction.addCarsucc({ addnewcar })),
-          catchError((error) => of(caraction.adddatafail({ error })))
+          catchError((error) => {
+            const toasterErrorAction = showToster({
+              message: 'server problem',
+            });
+            return of(
+              carAction.getAllCarsFailure({ error }),
+              toasterErrorAction
+            );
+          })
         )
       )
     )
   );
 
-  UpdateCar$ = createEffect(() =>
+  showTosterbox$ = createEffect(() =>
     this.action$.pipe(
-      ofType(caraction.updateCar),
+      ofType(showToster),
       mergeMap((action) =>
-        this._httpService.updateCar(action.id, action.addcar).pipe(
-          tap(() => {
-            const msg = 'update data successfully';
-            alert(msg);
-          }),
-          map((addcar) => caraction.updateCarsucc({ id: action.id, addcar })),
-          catchError((error) => of(caraction.updatedatafail({ error })))
-        )
+        this.snackBar(action.message).pipe(map(() => emptyToster()))
       )
     )
   );
+
+  private snackBar(message: string) {
+    return this.matSnackBar
+      .open(message, 'done', {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'left',
+      })
+      .afterDismissed();
+  }
 }

@@ -2,17 +2,16 @@ import { Component, inject } from '@angular/core';
 import { CarFacade } from 'src/app/application/car.facade';
 
 @Component({
-  selector: 'app-todo-list',
+  selector: 'app-car-list',
   templateUrl: './car-list.component.html',
   styleUrls: ['./car-list.component.css'],
 })
 export class CarListComponent {
-  carFacde = inject(CarFacade);
-
+  carFacade = inject(CarFacade);
   ngOnInit(): void {
-    this.carFacde.getallcar();
+    this.carFacade.getAllCar();
   }
   onDelete(id: number) {
-    this.carFacde.deletecar(id);
+    this.carFacade.deleteCar(id);
   }
 }

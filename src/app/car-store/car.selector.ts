@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CarAdapter, CarState } from './car.reducer';
+import { carAdapter, CarState } from './car.reducer';
 
-export const SelectCarState = createFeatureSelector<CarState>('car');
+export const selectCarState = createFeatureSelector<CarState>('car');
 
-export const selectCar = createSelector(
-  SelectCarState,
-  CarAdapter.getSelectors().selectAll
+export const selectorAllCars = createSelector(
+  selectCarState,
+  carAdapter.getSelectors().selectAll
 );
