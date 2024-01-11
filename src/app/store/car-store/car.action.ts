@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Car } from '../car-modal/car.modal';
+import { Car, CarFuelType } from '../../car-modal/car.modal';
 
 export const carAction = createActionGroup({
   source: 'car action',
@@ -19,5 +19,11 @@ export const carAction = createActionGroup({
     updateCar: props<{ id: number; car: Car }>(),
     updateCarSuccess: props<{ id: number; car: Car }>(),
     updateCarFailure: props<{ error: string }>(),
+
+    getFuelCars: emptyProps(),
+    getFuelCarsSuccess: props<{ fuel: CarFuelType[] }>(),
+
+    fuelFilter: props<{ fuelid: number }>(),
+    fuelFilterSuccess: props<{ car: Car[] }>(),
   },
 });

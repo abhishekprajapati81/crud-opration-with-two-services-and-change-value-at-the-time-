@@ -1,7 +1,8 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
-import { Car } from '../car-modal/car.modal';
+import { Car, CarFuelType } from '../../car-modal/car.modal';
 import { createReducer, on } from '@ngrx/store';
 import { carAction } from './car.action';
+import { state } from '@angular/animations';
 
 export const carAdapter = createEntityAdapter<Car>();
 export interface CarState extends EntityState<Car> {}
@@ -42,5 +43,10 @@ export const CarReducer = createReducer<CarState>(
   on(carAction.updateCarFailure, (state, { error }) => ({
     ...state,
     error,
-  }))
+  })),
+  on(carAction.fuelFilterSuccess, (state, { car }) => {
+    console.log(car);
+    // console.log(state);
+    return carAdapter.setAll(car, state);
+  })
 );

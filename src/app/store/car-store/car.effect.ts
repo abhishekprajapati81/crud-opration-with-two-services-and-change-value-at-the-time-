@@ -1,10 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { carAction } from './car.action';
-import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
-import { CarService } from '../service/car.service';
+import { catchError, filter, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { CarService } from '../../service/car.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { emptyToster, showToster } from './toster/toster.action';
+
+import { CarFuelTypeService } from '../../service/car-fuel-type.service';
+import { Car } from '../../car-modal/car.modal';
+import { emptyToster, showToster } from '../toaster/toster.action';
 
 Injectable();
 
@@ -12,18 +15,26 @@ export class CarEffect {
   action$ = inject(Actions);
   carService = inject(CarService);
   matSnackBar = inject(MatSnackBar);
+  cardata: any;
+  carFuelTypeService = inject(CarFuelTypeService);
+
+  //data list Effect
 
   loadCars$ = createEffect(() =>
     this.action$.pipe(
       ofType(carAction.getAllCars),
       mergeMap(() =>
-        this.carService
-          .getCar()
-          .pipe(map((car) => carAction.getAllCarsSuccess({ car })))
+        this.carService.getCar().pipe(
+          map((car) => {
+            // this.cardata = car;
+            return carAction.getAllCarsSuccess({ car });
+          })
+        )
       )
     )
   );
 
+  // delete Effect
   deleteCar$ = createEffect(() =>
     this.action$.pipe(
       ofType(carAction.deleteCar),
@@ -39,6 +50,8 @@ export class CarEffect {
       )
     )
   );
+
+  // add Effect
 
   addCar$ = createEffect(() =>
     this.action$.pipe(
@@ -56,50 +69,47 @@ export class CarEffect {
     )
   );
 
+  // Update Effect
+
   updateCar$ = createEffect(() =>
     this.action$.pipe(
       ofType(carAction.updateCar),
       mergeMap((action) =>
-        this.carService.updateCar(action.id, action.car).pipe(
-          switchMap((updateCar) => {
-            const updateAction = carAction.updateCarSuccess({
-              id: action.id,
-              car: updateCar,
-            });
-            const showTosterAction = showToster({
-              message: 'update data successfully',
-            });
-            return [updateAction, showTosterAction];
-          }),
-          catchError((error) => {
-            const toasterErrorAction = showToster({
-              message: 'server problem',
-            });
-            return of(
-              carAction.getAllCarsFailure({ error }),
-              toasterErrorAction
-            );
-          })
-        )
+        this.carService
+          .updateCar(action.id, action.car)
+          .pipe(
+            map((car) => carAction.updateCarSuccess({ id: action.id, car }))
+          )
       )
     )
   );
 
-  showTosterbox$ = createEffect(() =>
+  loadFuel$ = createEffect(() =>
     this.action$.pipe(
-      ofType(showToster),
-      mergeMap((action) =>
-        this.snackBar(action.message).pipe(map(() => emptyToster()))
+      ofType(carAction.getFuelCars),
+      mergeMap(() =>
+        this.carFuelTypeService
+          .getFuelCar()
+          .pipe(map((fuel) => carAction.getFuelCarsSuccess({ fuel: fuel })))
       )
     )
   );
 
-  private snackBar(message: string) {
-    return this.matSnackBar
-      .open(message, 'done', {
-        verticalPosition: 'bottom',
-        horizontalPosition: 'left',
+  carFuelFilter$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(carAction.fuelFilter),
+      switchMap((action) => {
+        const filterData = this.cardata.filter(
+          (ele: Car) => ele.fuelId == action.fuelid
+        );
+        return of(filterData).pipe(
+          map((result) => {
+            return carAction.fuelFilterSuccess({
+              car: result,
+            });
+          })
+        );
       })
-      .afterDismissed();
-  }
+    )
+  );
 }

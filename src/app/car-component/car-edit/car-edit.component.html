@@ -6,13 +6,16 @@
     formControlName="carname"
   />
   <br />
-  <label>CarFuel Type</label>
   <select formControlName="carfuel">
-    <option value="petrol">Petrol</option>
-    <option value="electric">Electric</option>
-    <option value="diesel">Diesel</option>
+    <option>Select Fuel Type</option>
+    <option
+      *ngFor="let fuelType of carFacade.carFuel$ | async"
+      [value]="fuelType.id"
+    >
+      {{ fuelType.fuelname }}
+    </option>
   </select>
-  <br />
+
   <button
     (click)="onadd(CarEditForm.value.id, CarEditForm.value)"
     [disabled]="!CarEditForm.valid"

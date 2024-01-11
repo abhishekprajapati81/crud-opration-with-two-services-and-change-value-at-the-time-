@@ -1,15 +1,27 @@
 {
   "Cars": [
     {
-      "carname": "Tesla",
-      "carfuel": "petrol",
+      "carname": "Tata",
+      "fuelId": "4",
       "id": 1
     }
   ],
-  "carFuelType": [
+  "fuelType": [
     {
       "id": 1,
-      "carFuelType": "petrol"
+      "fuelname": "petrol"
+    },
+    {
+      "id": 2,
+      "fuelname": "CNG"
+    },
+    {
+      "id": 3,
+      "fuelname": "Electric"
+    },
+    {
+      "id": 4,
+      "fuelname": "diesel"
     }
   ]
 }

@@ -1,0 +1,25 @@
+<form [formGroup]="carAddForm">
+  <label for="carname">Car Name</label>
+  <input
+    type="text"
+    id="carname"
+    placeholder="Enter the car name"
+    formControlName="carname"
+  />
+  <br />
+
+  <label for="fuelId">Car Fuel Type</label>
+  <select id="fuelId" formControlName="fuelId">
+    <option>Select Fuel Type</option>
+    <option
+      *ngFor="let fuelType of carFacade.carFuel$ | async"
+      [value]="fuelType.id"
+    >
+      {{ fuelType.fuelname }}
+    </option>
+  </select>
+
+  <button (click)="onadd(carAddForm.value)" [disabled]="!carAddForm.valid">
+    Add Car
+  </button>
+</form>

@@ -1,0 +1,47 @@
+<div>
+  <button routerLink="addcar">Add Car</button>
+  <router-outlet></router-outlet>
+
+  <select (change)="getFilterdata($event)">
+    <option [value]="" disabled selected>Select Fuel Type</option>
+    <option
+      *ngFor="let fuelType of carFacade.carFuel$ | async"
+      [value]="fuelType.id"
+    >
+      {{ fuelType.fuelname }} {{ fuelType.id }}
+    </option>
+  </select>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Car Name</th>
+        <th>Car FuelId</th>
+        <th>Car Fuel</th>
+        <th>Delete</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let car of carFacade.carList$ | async">
+        <td>{{ car.id }}</td>
+        <td>{{ car.carname }}</td>
+        <td>{{ car.fuelId }}</td>
+        <td>
+          <span *ngFor="let fuelType of carFuelTypes$ | async">
+            <span *ngIf="fuelType.id == car.fuelId">{{
+              fuelType.fuelname
+            }}</span>
+          </span>
+        </td>
+        <td>
+          <button (click)="onDelete(car.id ?? 0)">Delete</button>
+        </td>
+        <td>
+          <button [routerLink]="['caredit', car.id]">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

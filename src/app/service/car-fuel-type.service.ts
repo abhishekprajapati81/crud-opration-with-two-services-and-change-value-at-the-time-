@@ -1,17 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CarFuelType } from '../car-modal/car.modal';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarFuelTypeService {
-  constructor(private carFuel: HttpClient) {}
+  constructor(private carFuelHttp: HttpClient) {}
 
-  carFuelType: string = 'http://localhost:3000/fuelType';
+  carFuelUrl: string = 'http://localhost:3000/fuelType';
 
-  getCarFuelType(): Observable<CarFuelType> {
-    return this.carFuel.get<CarFuelType>(this.carFuelType);
+  getFuelCar(): Observable<CarFuelType[]> {
+    return this.carFuelHttp.get<CarFuelType[]>(this.carFuelUrl);
   }
+
+  // addCarFuel(carFuel: CarFuelType): Observable<CarFuelType> {
+  //   return this.carFuelHttp.post<CarFuelType>(this.carFuelUrl, carFuel);
+  // }
+
+  // deletCarFuel(id: number): Observable<CarFuelType> {
+  //   return this.carFuelHttp.delete<CarFuelType>(`${this.carFuelUrl}/${id}`);
+  // }
+
+  // updateCarFuel(id: number, carFuel: CarFuelType): Observable<CarFuelType> {
+  //   return this.carFuelHttp.patch<CarFuelType>(
+  //     `${this.carFuelUrl}/${id}`,
+  //     carFuel
+  //   );
+  // }
 }

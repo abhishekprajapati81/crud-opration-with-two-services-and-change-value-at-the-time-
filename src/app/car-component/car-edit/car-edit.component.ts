@@ -21,18 +21,21 @@ export class CarEditComponent implements OnInit {
       const getId: string = res.get('id')!;
       this.carFacade.carList$.subscribe((value) => {
         const getCarData = value.find((cardata) => cardata.id === +getId);
-        // console.log(value);
 
         this.CarEditForm = new FormGroup({
           id: new FormControl(getCarData?.id),
           carname: new FormControl(getCarData?.carname, Validators.required),
-          carfuel: new FormControl(getCarData?.carfuel, Validators.required),
+          carfuel: new FormControl(getCarData?.fuelId, Validators.required),
         });
       });
     });
   }
   onadd(id: number, value: Car) {
     console.log(this.CarEditForm.value);
-    this.carFacade.updateCar(id, value);
+    const carFuelValue: Car = {
+      carname: this.CarEditForm.value.carname,
+      fuelId: this.CarEditForm.value.carfuel,
+    };
+    this.carFacade.updateCar(id, carFuelValue);
   }
 }

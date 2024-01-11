@@ -1,10 +1,12 @@
 export interface Car {
   id?: number;
   carname: string;
-  carfuel: string;
+  fuelId: number;
+  fuelname?: string;
+  carFuelTypeName?: CarFuelType;
 }
 
-export interface CarFuelType extends Car {
-  id: number;
-  carFuelType: string;
+export interface CarFuelType {
+  id?: number;
+  fuelname: string;
 }
