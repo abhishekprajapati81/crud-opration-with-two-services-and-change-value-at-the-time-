@@ -1,0 +1,3 @@
+is task me mene two service banai hai jisme ek service me car ki list hai 
+dusri service me car ka fuel type hai jo frontend me show ho raha hai and me is task me 
+car ki service me fuel vali service ki id bhej raha hu and fronted me fuel ka data show kar raha hu 
